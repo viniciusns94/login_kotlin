@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">login_kotlin</string>
+    <string name="usuario">Usuário</string>
+    <string name="senha">Senha</string>
+    <string name="entrar">Entrar</string>
+    <string name="text_ou">OU</string>
+    <string name="text_botao_google">Faça login com Gmail</string>
+</resources>
