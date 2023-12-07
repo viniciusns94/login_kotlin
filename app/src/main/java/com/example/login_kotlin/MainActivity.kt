@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                     mBinding.edittexttextActivitymainSenha.text.toString()
                 )
             } catch (e: Exception) {
-                Toast.makeText(mContext, "Por favor preencha todos os campos para o login", Toast.LENGTH_LONG).show()
+                Toast.makeText(mContext, "Por favor preencha todos os campos para o login", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -69,12 +69,8 @@ class MainActivity : AppCompatActivity() {
                     /** Sign in success, update UI with the signed-in user's information **/
                     Log.d(TAG, "signInWithCustomToken:success")
                     val user = mAuth.currentUser
-                    limpaCampos()
-                    Toast.makeText(mContext, "Autententicação efetuada com sucesso", Toast.LENGTH_SHORT).show()
-                    val mIntent = Intent(this, PrincipalActivity::class.java).apply {
-                        //putExtra(EXTRA_MESSAGE, message)
-                    }
-                    startActivity(mIntent)
+                    abrePrincipal()
+                    finish()
 //                            updateUI(user)
                 } else {
                     /** If sign in fails, display a message to the user. **/
@@ -84,17 +80,31 @@ class MainActivity : AppCompatActivity() {
                 }
             }
     }
-// MINUTO 17:53 https://www.youtube.com/watch?v=_7YMA6awb7Y&list=PLHI7bDSQYkJjTcDfc5UNL2f6Cwd5-33Vr&index=4
-    private fun limpaCampos() {
+
+    private fun abrePrincipal() {
         mBinding.edittexttextActivitymainUsuario.setText("")
         mBinding.edittexttextActivitymainSenha.setText("")
+
+        Toast.makeText(mContext, "Autententicação efetuada com sucesso", Toast.LENGTH_SHORT).show()
+        val mIntent = Intent(this, PrincipalActivity::class.java).apply {
+            //putExtra(EXTRA_MESSAGE, message)
+        }
+        startActivity(mIntent)
     }
 
     public override fun onStart() {
         super.onStart()
 
         /** Check if user is signed in (non-null) and update UI accordingly.*/
-//        val currentUser = auth.currentUser
+        val currentUser = mAuth.currentUser
+        try {
+            if (currentUser != null) {
+                Toast.makeText(mContext, "Usuário" + currentUser.email + " logado", Toast.LENGTH_LONG).show()
+                abrePrincipal()
+            }
+        } catch (_: Exception) {
+
+        }
 //        updateUI(currentUser)
     }
 }

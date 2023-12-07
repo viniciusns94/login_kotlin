@@ -5,4 +5,5 @@
     <string name="entrar">Entrar</string>
     <string name="text_ou">OU</string>
     <string name="text_botao_google">Faça login com Gmail</string>
+    <string name="sair">Sair</string>
 </resources>
