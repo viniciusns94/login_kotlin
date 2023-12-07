@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
@@ -34,7 +35,6 @@ class MainActivity : AppCompatActivity() {
          * inflando mBinding com o objeto da Activity layoutInflater
          */
         mBinding = ActivityMainBinding.inflate(layoutInflater)
-
         /**
          * val é uma variável que não será mais alterada igual a variáveis "final" do java
          * mBinding.root a variável recebe o root de mBinding da respectiva classe
@@ -51,13 +51,17 @@ class MainActivity : AppCompatActivity() {
         mTextBotaoLogar.text = getString(R.string.text_botao_google)
 
         mBinding.buttonActivitymainEntrar.setOnClickListener {
-            try {
+            if (TextUtils.isEmpty(mBinding.edittexttextActivitymainUsuario.text)) {
+                mBinding.edittexttextActivitymainUsuario.setError("Campo senha não pode ser vazio")
+                Toast.makeText(mContext, "Por favor, preencha o campo de usuário", Toast.LENGTH_SHORT).show()
+            } else if (TextUtils.isEmpty(mBinding.edittexttextActivitymainSenha.text)) {
+                mBinding.edittexttextActivitymainSenha.setError("Campo senha não pode ser vazio")
+                Toast.makeText(mContext, "Por favor, preencha o campo de senha", Toast.LENGTH_SHORT).show()
+            } else {
                 loginUsuarioESenha(
                     mBinding.edittexttextActivitymainUsuario.text.toString(),
                     mBinding.edittexttextActivitymainSenha.text.toString()
                 )
-            } catch (e: Exception) {
-                Toast.makeText(mContext, "Por favor preencha todos os campos para o login", Toast.LENGTH_SHORT).show()
             }
         }
     }
